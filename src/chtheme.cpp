@@ -7,19 +7,6 @@
 #include "functions.hpp"
 #include <wordexp.h>
 
-/*
-chtheme <command> <application name>
-        optional: <theme>
-
-available commands:
-
-list   <app>         - return name of each theme for chosen <app>
-set    <app> <theme> - set theme for chosen application
-colors <app> <theme> - return theme hex color codes and display them as colored blocks in console
-apps   <none>        - return application list which chtheme can work with
-help   <none>        - display help message
-*/
-
 //Hardcoded config locations below:
 
 std::vector<std::string> expected_locations =
