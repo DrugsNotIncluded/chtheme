@@ -13,3 +13,8 @@ list   <application>         - print all application themes found
 set    <application> <theme> - set selected theme for application
 colors <application> <theme> - print all hex color codes contained in theme file, display them in console as colored ASCII blocks
 ```
+
+# TODO:
++ Add ability to use interactive mode
++ Implement `chtheme colors`
++ Add instructions for adding support to new applications
