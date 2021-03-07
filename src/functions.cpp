@@ -9,6 +9,9 @@
 #include <wordexp.h>
 
 namespace chf {
+
+  static std::string config_path;
+  
   bool Fexists(std::string &filename)
   {
     struct stat buffer;
@@ -37,6 +40,25 @@ namespace chf {
 	  return(expected_locations[i]);
       }
   }
+
+
+  //you can access "config" value after first initialization (function usage)
+ 
+  std::string *Config(const std::string &config_location)
+  {
+    static std::string config;
+    static bool config_loaded;
+
+    if (config_loaded!=true)
+      {
+	config=config_location;
+	config_loaded=true;
+	printf("%s","[LOG] Config loaded for the first time!");
+      }
+    return(&config); 
+  }
+
+  //Now we are ready to write functions which will use Config() instead of passing as variable every time!
   
   /*
   std::vector<std::string> ReadConfig(const std::string &variable, std::string &config_location)

@@ -1,0 +1,3 @@
+/home/coffeegirl/Code/Git/chtheme/build/CMakeFiles/rebuild_cache.dir
+/home/coffeegirl/Code/Git/chtheme/build/CMakeFiles/edit_cache.dir
+/home/coffeegirl/Code/Git/chtheme/build/CMakeFiles/chtheme.dir

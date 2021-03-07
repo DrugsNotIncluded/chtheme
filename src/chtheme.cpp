@@ -5,6 +5,7 @@
 #include <string>
 #include <filesystem>
 #include "functions.hpp"
+#include <iostream>
 #include <wordexp.h>
 
 //Hardcoded config locations below:
@@ -20,10 +21,16 @@ int main(int argc, char ** argv)
    {
     printf("Use 'chtheme help' for available commands");
     return 1;
-   }  
-  std::string config_location = chf::GetConfigLocation(expected_locations);
-  printf("%s",config_location.c_str());
-  return 0;
+   }
+  //Just testing!
+  
+  std::string config_location  = chf::GetConfigLocation(expected_locations);
+  std::string *config_pointer1 = chf::Config(config_location);
+  std::string *config_pointer2 = chf::Config({});
+
+  std::cout << "\n" << *config_pointer1 << "\n" << *config_pointer2;
+  
+  return(0);
 }
 
 

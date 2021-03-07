@@ -25,8 +25,11 @@ namespace chf{
 
   
   std::string GetConfigLocation(std::vector<std::string> &expected_locations);
-  /*
 
+  std::string *Config(const std::string &config_location);
+
+  //std::string *ConfigSingleton(void);
+  /*
 !!COMMAND LINE DISPLAYING!!
 
 Displays content of paths returned by get_app_themes_location() in command line
