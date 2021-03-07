@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/chtheme.dir/src/chtheme.cpp.o CMakeFiles/chtheme.dir/src/functions.cpp.o -o chtheme 
