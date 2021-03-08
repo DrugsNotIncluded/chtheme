@@ -13,13 +13,13 @@ namespace chf {
 
   static std::string config_path;
   
-  bool Fexists(std::string &filename)
+  bool Fexists(std::string filename)
   {
     struct stat buffer;
     return(stat(filename.c_str(), &buffer) == 0);
   }
 
-  void PathExpand(std::string &word)
+  std::string PathExpand(const std::string &word)
   {
     char ** w;
     wordexp_t p;
@@ -29,15 +29,14 @@ namespace chf {
     for (size_t i=0;i<p.we_wordc;i++)
       new_word+=w[i];
     wordfree(&p);
-    word=new_word;
+    return(new_word);
   }
 
   std::string GetConfigLocation(std::vector<std::string> &expected_locations)
   {
     for (int i=0; i < expected_locations.size(); i++)
       {
-	PathExpand(expected_locations[i]);
-	if (Fexists(expected_locations[i]))
+	if (Fexists(PathExpand(expected_locations[i]))==true)
 	  return(expected_locations[i]);
       }
   }
@@ -65,8 +64,8 @@ namespace chf {
   
   std::vector<std::string> ReadConfig(std::vector<std::string> &key_list)
   {
-    std::vector<std::string> value_list;
-    
+    //should split code into functions into another and explain it for my future self, this is a mess in current state 
+    std::vector<std::string> value_list;   
     std::string config_location=*Config({});
     std::ifstream config_istream(config_location);
     
@@ -75,7 +74,6 @@ namespace chf {
 	std::istringstream is_line(line);
 	for (int i=0; i < key_list.size(); i++)
 	  {
-	    //std::istringstream is_line(line);
 	    if (std::getline(is_line,key_list[i],'='))
 	      {
 		std::string value;
@@ -88,21 +86,26 @@ namespace chf {
   }
 
   
-  /*
-std::vector<std::string> get_app_themes_location(const std::string &appname, std::string &config_location)
+  
+std::vector<std::string> AppThemesLocation(const std::string &appname)
 {
-  std::vector<std::string> all_paths = read_config("locations",config_location);
+  std::string config_location = *Config({});
+  std::vector<std::string> keys = {"location"}; 
+  
+  std::vector<std::string> all_paths = ReadConfig(keys);
   std::vector<std::string> valid_paths;
 
   for (int i=0; i < all_paths.size(); i++)
     {
-      std::string temp_path=all_paths[i] + appname;
-      if (Fexists(temp_path))
+      std::string temp_path=PathExpand(all_paths[i]) + "/" + appname;
+      if (Fexists(temp_path)==true)
 	valid_paths.push_back(all_paths[i]);
     }
   return(valid_paths);
 }
 
+  /*
+  
 void list_themes(const std::string &appname, std::string &config_location)
 {
   std::vector<std::string> themes;

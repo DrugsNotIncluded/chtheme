@@ -9,12 +9,12 @@ namespace chf{
   /*
     Check for file existance
   */
-  bool Fexists(std::string &filename);
+  bool Fexists(std::string filename);
 
   /*
     Expands environment variables in file path
   */
-  void PathExpand(std::string &word);
+  std::string PathExpand(const std::string &word);
 
   /*
     reads variables from config file
@@ -45,11 +45,11 @@ B/{shemes}
 
 if we ask for "memes" app when function will only return path to folder "B/"
 but if we ask for "shemes" it will return both paths for A/ and B/
+  */
+std::vector<std::string> AppThemesLocation(const std::string &appname);
 
-std::vector<std::string> get_app_themes_location(std::string &appname, std::string &config_location);
 
-
-
+  /*
 1) Function looks in <config path> and gets all base theme paths for current application via get_app_themes_location()
 2) Function recursively searches for theme name match in all <base_path>/<application_name>
 3) Now it should search for app theme apply function in <config_path>/apply_functions . Apply functions can be either shell script or binary
