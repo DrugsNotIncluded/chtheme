@@ -7,6 +7,7 @@
 #include <string>
 #include <filesystem>
 #include <wordexp.h>
+#include <fstream>
 
 namespace chf {
 
@@ -43,6 +44,7 @@ namespace chf {
 
 
   //you can access "config" value after first initialization (function usage)
+  //*Config() always should be called without any parameters except the first call
  
   std::string *Config(const std::string &config_location)
   {
@@ -53,18 +55,40 @@ namespace chf {
       {
 	config=config_location;
 	config_loaded=true;
-	printf("%s","[LOG] Config loaded for the first time!");
+	printf("%s","[LOG] Config loaded for the first time!\n");
       }
     return(&config); 
   }
 
   //Now we are ready to write functions which will use Config() instead of passing as variable every time!
   
-  /*
-  std::vector<std::string> ReadConfig(const std::string &variable, std::string &config_location)
+  
+  std::vector<std::string> ReadConfig(std::vector<std::string> &key_list)
   {
+    std::vector<std::string> value_list;
+    
+    std::string config_location=*Config({});
+    std::ifstream config_istream(config_location);
+    
+    for (std::string line; getline(config_istream, line);)
+      {
+	std::istringstream is_line(line);
+	for (int i=0; i < key_list.size(); i++)
+	  {
+	    //std::istringstream is_line(line);
+	    if (std::getline(is_line,key_list[i],'='))
+	      {
+		std::string value;
+		if (std::getline(is_line, value))
+		    value_list.push_back(value);
+	      }
+	  }
+      }
+    return(value_list);
   }
 
+  
+  /*
 std::vector<std::string> get_app_themes_location(const std::string &appname, std::string &config_location)
 {
   std::vector<std::string> all_paths = read_config("locations",config_location);

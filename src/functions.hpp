@@ -20,15 +20,12 @@ namespace chf{
     reads variables from config file
     only usefull inside other functions
   */
-  std::vector<std::string> ReadConfig(const std::string &variable, std::string &config_location);
+  std::vector<std::string> ReadConfig(std::vector<std::string> &key_list);
 
-
-  
   std::string GetConfigLocation(std::vector<std::string> &expected_locations);
 
   std::string *Config(const std::string &config_location);
 
-  //std::string *ConfigSingleton(void);
   /*
 !!COMMAND LINE DISPLAYING!!
 
