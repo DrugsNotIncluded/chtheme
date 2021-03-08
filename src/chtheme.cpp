@@ -26,7 +26,8 @@ int main(int argc, char ** argv)
   //first init of config:
   
   std::string config_location  = chf::GetConfigLocation(expected_locations);
-  chf::Config(config_location);
+  chf::Config(chf::PathExpand(config_location));
+
   /*
     Example usage:
   std::string config_pointer1 = *chf::Config({});
@@ -36,7 +37,7 @@ int main(int argc, char ** argv)
   */
 
   //Test setup
-  
+  /*
   std::vector<std::string> keys_test=
     {"location",
      "override_apply"};
@@ -45,6 +46,15 @@ int main(int argc, char ** argv)
 
   for (int i=0;i< values_list.size();i++)
     printf("[%d]%s\n",i,values_list[i].c_str());
+
+  std::string appname = "alacritty";
+  std::vector<std::string> appPaths = chf::AppThemesLocation(appname);
+
+  for (int i=0;i<appPaths.size();i++)
+    printf("[LOG_THEMES_LOCATION] %s",appPaths[i].c_str());
+  */
+
+  
   
   return(0);
 }
